@@ -1,4 +1,53 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $mysql= new mysqli("localhost","id3742422_shrey","shreygupta","id3742422_portfolio");
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+     if(isset($_POST['submit'])){
+              $name=$_POST['name'];
+              $d=$_POST['designation'];
+              $o=$_POST['organisation'];
+              $e=$_POST['email'];
+              $t=$_POST['text'];
+           $preparedstmt = $mysql->prepare("insert into testimonials values(NULL,?,?,?,?,?,0)");
+      	  if ( false===$preparedstmt ) {
+  				die('prepare() failed: ' . htmlspecialchars($mysqli->error));
+			}
+          $rc=$preparedstmt->bind_param('sssss',$name,$d,$o,$e,$t); //prevent injection
+          if ( false===$rc ) {
+  				die('bind_param() failed: ' . htmlspecialchars($stmtins->error));
+			}
+          $rc=$preparedstmt->execute();
+          if ( false===$rc ) {
+  				die('execute() failed: ' . htmlspecialchars($stmtins->error));
+			}else{
+              echo '<script>alert("Successfully Submitted Thank You!")</script>';
+          }
+          $preparedstmt->close();
+         
+     $headers = 'From: '.'contact@shreygupta.info'.'' . "\r\n" .
+   'Reply-To: '.'contact@shreygupta.info'.'' . "\r\n" .
+   'X-Mailer: PHP/' . phpversion();
+    // the message
+$msg = "Sir/Ma'am,\nThank You For Submitting The Testification/Review.\n Thank You\nShrey Gupta\nconnectwithshrey@gmail.com";
 
+// use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
+
+// send email
+echo mail($e,"Thank You For Submitting Testification",$msg,$headers);
+         $link="http://shreygupta.info/verify.php?id=1";
+         $msg = $name." / ".$d." Of ".$o." Have Submitted Testimonial"." Contact At ".$e."\n".$link;
+
+// use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
+
+// send email
+echo mail("connectwithshrey@gmail.com","Testimonial Submitted Kindly Review",$msg,$headers);
+     }
+}
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -153,8 +202,8 @@
 
 								<ul>
 									<li ><a href="#about"><i class="icon-user"></i>About</a></li>
-									<li><a  href="#portfolio"><i class="icon-camera"></i>Experience</a></li>
-									<li><a  href="#blog"><i class="icon-chat"></i>Educations</a></li>
+									<li><a  href="#experience"><i><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDUxMCA1MTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMCA1MTA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0id29yayI+CgkJPHBhdGggZD0iTTQ1OSwxMTQuNzVIMzU3di01MWwtNTEtNTFIMjA0bC01MSw1MXY1MUg1MWMtMjguMDUsMC01MSwyMi45NS01MSw1MXYyODAuNWMwLDI4LjA1LDIyLjk1LDUxLDUxLDUxaDQwOCAgICBjMjguMDUsMCw1MS0yMi45NSw1MS01MXYtMjgwLjVDNTEwLDEzNy43LDQ4Ny4wNSwxMTQuNzUsNDU5LDExNC43NXogTTMwNiwxMTQuNzVIMjA0di01MWgxMDJWMTE0Ljc1eiIgZmlsbD0iIzhmOTI5NCIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" /></i>Experience</a></li>
+									<li><a  href="#education"><i><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAyOTYuOTk5IDI5Ni45OTkiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI5Ni45OTkgMjk2Ljk5OTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiPgo8Zz4KCTxnPgoJCTxnPgoJCQk8cGF0aCBkPSJNNDUuNDMyLDM1LjA0OWMtMC4wMDgsMC0wLjAxNywwLTAuMDI1LDBjLTIuODA5LDAtNS40NTEsMS4wOTUtNy40NDYsMy4wODVjLTIuMDE3LDIuMDEyLTMuMTI4LDQuNjkxLTMuMTI4LDcuNTQzICAgICB2MTU5LjM2NWMwLDUuODQ0LDQuNzczLDEwLjYxLDEwLjY0MSwxMC42MjVjMjQuNzM4LDAuMDU5LDY2LjE4NCw1LjIxNSw5NC43NzYsMzUuMTM2Vjg0LjAyM2MwLTEuOTgxLTAuNTA2LTMuODQyLTEuNDYxLTUuMzgyICAgICBDMTE1LjMyMiw0MC44NDksNzAuMjI2LDM1LjEwNyw0NS40MzIsMzUuMDQ5eiIgZmlsbD0iIzc5ODA4NSIvPgoJCQk8cGF0aCBkPSJNMjYyLjE2NywyMDUuMDQyVjQ1LjY3NmMwLTIuODUyLTEuMTExLTUuNTMxLTMuMTI4LTcuNTQzYy0xLjk5NS0xLjk5LTQuNjM5LTMuMDg1LTcuNDQ1LTMuMDg1Yy0wLjAwOSwwLTAuMDE4LDAtMC4wMjYsMCAgICAgYy0yNC43OTMsMC4wNTktNjkuODg5LDUuODAxLTkzLjM1Nyw0My41OTNjLTAuOTU1LDEuNTQtMS40NiwzLjQwMS0xLjQ2LDUuMzgydjE2Ni43NzkgICAgIGMyOC41OTItMjkuOTIxLDcwLjAzOC0zNS4wNzcsOTQuNzc2LTM1LjEzNkMyNTcuMzk0LDIxNS42NTEsMjYyLjE2NywyMTAuODg1LDI2Mi4xNjcsMjA1LjA0MnoiIGZpbGw9IiM3OTgwODUiLz4KCQkJPHBhdGggZD0iTTI4Ni4zNzMsNzEuODAxaC03LjcwNnYxMzMuMjQxYzAsMTQuOTIxLTEyLjE1NywyNy4wODgtMjcuMTAxLDI3LjEyNWMtMjAuOTgzLDAuMDUtNTUuNTgxLDQuMTUzLTgwLjA4NCwyNy4zNDQgICAgIGM0Mi4zNzgtMTAuMzc2LDg3LjA1Mi0zLjYzMSwxMTIuNTEyLDIuMTcxYzMuMTc5LDAuNzI0LDYuNDY0LTAuMDI0LDkuMDExLTIuMDU0YzIuNTM4LTIuMDI1LDMuOTk0LTUuMDUyLDMuOTk0LTguMzAxVjgyLjQyNyAgICAgQzI5Nyw3Ni41NjgsMjkyLjIzMiw3MS44MDEsMjg2LjM3Myw3MS44MDF6IiBmaWxsPSIjNzk4MDg1Ii8+CgkJCTxwYXRoIGQ9Ik0xOC4zMzIsMjA1LjA0MlY3MS44MDFoLTcuNzA2QzQuNzY4LDcxLjgwMSwwLDc2LjU2OCwwLDgyLjQyN3YxNjguODk3YzAsMy4yNSwxLjQ1Niw2LjI3NiwzLjk5NCw4LjMwMSAgICAgYzIuNTQ1LDIuMDI5LDUuODI3LDIuNzgsOS4wMTEsMi4wNTRjMjUuNDYtNS44MDMsNzAuMTM1LTEyLjU0NywxMTIuNTExLTIuMTcxYy0yNC41MDItMjMuMTktNTkuMS0yNy4yOTItODAuMDgzLTI3LjM0MiAgICAgQzMwLjQ5LDIzMi4xMywxOC4zMzIsMjE5Ljk2MywxOC4zMzIsMjA1LjA0MnoiIGZpbGw9IiM3OTgwODUiLz4KCQk8L2c+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" /></i>Educations</a></li>
 									<li><a  href="#contact"><i class="icon-phone"></i>Contact/TESTIMONIALS</a></li>
 								</ul>
 
@@ -176,7 +225,7 @@
 
 				</ul>
 				
-				<p>&copy; 2017 Shrey Gupta</p>
+				<p>&copy; 2017 &copy; Shrey Gupta</p>
 					
 				</div>
 				
@@ -371,7 +420,26 @@
 								</div>
 								<!--End block content-->	
 								
-								
+								<div class="divider-m tCenter margTSmall margBSmall clearfix">
+												
+												
+												
+														<div class="col-md-12">
+															
+															
+															
+						<div class="zigzag medium clearfix " data-svg-drawing="yes">
+				<svg xml:space="preserve" viewBox="0 0 69.172 14.975" width="45" height="5" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+				<path d="M1.357,12.26 10.807,2.81 20.328,12.332
+					29.781,2.879 39.223,12.321 48.754,2.79 58.286,12.321 67.815,2.793 " style="stroke-dasharray: 93.9851, 93.9851; stroke-dashoffset: 0;"></path>
+				</svg>
+			</div>
+												</div>
+												
+												
+												
+												
+											</div>
 								
 									<!--Block content-->	
 									<div class="block-content margBMedium">
@@ -406,7 +474,7 @@
 														</div>
 												</li>
                                                     <li>
-													<h4>AJAX</h4>
+													<h4>Python 2</h4>
 														<div class="progress">
 														<div class="percentage">
 														70%
@@ -430,7 +498,7 @@
 														</div>
 												</li>
                                                     <li>
-													<h4>Html/css (HTML Editing And Css Animations)</h4>
+													<h4>Html/css</h4>
 													<div class="progress">
 													<div class="percentage">
 													90%
@@ -477,6 +545,26 @@
 									<!--End skill design-->
 
 									</div>
+                                <div class="divider-m tCenter margTSmall margBSmall clearfix">
+												
+												
+												
+														<div class="col-md-12">
+															
+															
+															
+						<div class="zigzag medium clearfix " data-svg-drawing="yes">
+				<svg xml:space="preserve" viewBox="0 0 69.172 14.975" width="45" height="5" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+				<path d="M1.357,12.26 10.807,2.81 20.328,12.332
+					29.781,2.879 39.223,12.321 48.754,2.79 58.286,12.321 67.815,2.793 " style="stroke-dasharray: 93.9851, 93.9851; stroke-dashoffset: 0;"></path>
+				</svg>
+			</div>
+												</div>
+												
+												
+												
+												
+											</div>
 									<!--End block content-->
                                     <div class="block-content margBMedium">
 									
@@ -493,6 +581,14 @@
 										<div class="col-md-11">
 											
 											<ul class="skills-list clearfix">
+                                            <li>
+												<h4>Android</h4>
+												<div class="progress">
+												<div class="percentage">
+												75%
+												</div>
+												</div>
+											</li>    
 											<li>
 												<h4>JQuery</h4>
 												<div class="progress">
@@ -501,7 +597,7 @@
 												</div>
 												</div>
 											</li>
-											<li>
+											<!-- <li>
 												<h4>Laravel</h4>
 													<div class="progress">
 													<div class="percentage">
@@ -516,7 +612,7 @@
 													15%
 													</div>
 													</div>
-											</li>
+											</li> -->
 												
 
 										</ul>
@@ -537,10 +633,104 @@
 	
 	                            </div>
 								<!--End skill design-->
+                                        
 
 								</div>
 								<!--End block content-->
+                            <div class="divider-m tCenter margTSmall margBSmall clearfix">
+												
+												
+												
+														<div class="col-md-12">
+															
+															
+															
+						<div class="zigzag medium clearfix " data-svg-drawing="yes">
+				<svg xml:space="preserve" viewBox="0 0 69.172 14.975" width="45" height="5" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+				<path d="M1.357,12.26 10.807,2.81 20.328,12.332
+					29.781,2.879 39.223,12.321 48.754,2.79 58.286,12.321 67.815,2.793 " style="stroke-dasharray: 93.9851, 93.9851; stroke-dashoffset: 0;"></path>
+				</svg>
+			</div>
+												</div>
+												
+												
+												
+												
+											</div>
 
+									<!--Block content-->	
+									<div class="block-content margBMedium">
+
+
+									<!--Skill design-->
+									<div class=" skill dev">
+
+
+		                               	<!--Row-->	
+										<div class="row">
+											
+											<div class="vc">
+
+											<div class="col-md-11">
+
+												<ul class="skills-list clearfix">
+                                                 <li>
+													<h4>Windows Enviornment</h4>
+													<div class="progress">
+													<div class="percentage">
+													85%
+													</div>
+													</div>
+												</li>
+												<li>
+													<h4>Debian Linux (Ubuntu)</h4>
+														<div class="progress">
+														<div class="percentage">
+														45%
+														</div>
+														</div>
+												</li>
+											</ul>
+
+											</div>
+
+
+											<div class="col-md-1">
+												<div class="title dev">
+													<span>Operating Systems </span>
+												</div>
+											</div>
+											
+											</div>
+
+										</div>
+										<!--End row-->
+
+		                            </div>
+									<!--End skill design-->
+
+									</div>
+									<!--End block content-->
+                                <div class="divider-m tCenter margTSmall margBSmall clearfix">
+												
+												
+												
+														<div class="col-md-12">
+															
+															
+															
+						<div class="zigzag medium clearfix " data-svg-drawing="yes">
+				<svg xml:space="preserve" viewBox="0 0 69.172 14.975" width="45" height="5" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
+				<path d="M1.357,12.26 10.807,2.81 20.328,12.332
+					29.781,2.879 39.223,12.321 48.754,2.79 58.286,12.321 67.815,2.793 " style="stroke-dasharray: 93.9851, 93.9851; stroke-dashoffset: 0;"></path>
+				</svg>
+			</div>
+												</div>
+												
+												
+												
+												
+											</div>
 										<!--Block content-->	
 										<div class="block-content">
 
@@ -617,23 +807,6 @@
 							<!--End content-->
 							
 							
-							
-							
-							<!--Main title-->
-							
-								
-						
-						
-						
-						
-						
-							
-							<!--Main title-->
-							
-								
-							<!--End content-->
-							
-							
 							<!--Main title-->
 							
 								<div class="main-title">
@@ -679,7 +852,7 @@
 												
 												<div class="det">
 												<h3>Virtual Internship</h3>
-												<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
+												<p>Work From Internships.</p>
 											</div>
 												
 											</div>
@@ -692,7 +865,7 @@
 												
 												<div class="det">
 												<h3>Team Collaboration</h3>
-												<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
+												<p>Collaborating With Existing Team.</p>
 											</div>
 												
 											</div>
@@ -706,7 +879,7 @@
 												
 												<div class="det">
 												<h3>Freelancing</h3>
-												<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
+												<p>Developing Independently With Help Of Fellow Mates</p>
 											</div>
 												
 											</div>
@@ -772,7 +945,7 @@
 												
 												<div class="det">
 												<h3>Web Development</h3>
-												<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
+												<p>Backend With PHP And Javascript And Ajax Are Current Area Of Expertise</p>
 											</div>
 												
 											</div>
@@ -780,7 +953,7 @@
 											
 											<div class="col-md-4">
 												<div class="ico">
-												<i class="icon-tools"></i>
+												
 												</div>
 												
 												<div class="det">
@@ -799,7 +972,7 @@
 												
 												<div class="det">
 												<h3>Android Development</h3>
-												<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
+												<p>I Have Been A Android Developer For Almost A Year Gaining Experience And Excellence</p>
 											</div>
 												
 											</div>
@@ -848,8 +1021,8 @@
 											
 											
 											<div class="col-md-12">
-												<a class="but opc-1 ico" href="#">Download my cv</a>
-												<a class="but opc-2 ico" href="#">Print my resume</a>
+												<a class="but opc-1 ico" href="Shrey Gupta - RESUME.pdf">Download my cv</a>
+												<a class="but opc-2 ico" href="Shrey Gupta - CV.pdf">Print my resume</a>
 												
 											</div>
 										
@@ -876,7 +1049,7 @@
 				
 				
 								<!--Portfolio Tab-->
-							<section id="portfolio" class="bgWhite ofsInBottom">
+							<section id="experience" class="bgWhite ofsInBottom">
 
 								<div class="main-title">
 									<h1>experience</h1>
@@ -925,11 +1098,7 @@
 													<h4>Android Developer – Shoocal </h4>
 													<h6><i class="icon-calendar"></i>Oct 2016 - <span class="current">Current</span></h6>
 												</div>
-												<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+												<p>This Is My First Intership Work Here Involved Product Planning , Development &amp; Design Planning , Development Of Multiple Applications , All Together It Is A Good Experience First Time Working In Team.</p>
 												</div>
 												<!--End experience-->
 												
@@ -939,11 +1108,7 @@
 													<h4>My22yards Backend-PHP(<a href="my22yards.com">Visit To Page</a>)</h4>
 													<h6><i class="icon-calendar"></i>Nov 2016 - Jan 2017</h6>
 												</div>
-													<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+													<p>This Was A Small Job Although First Work In The Field Of Web Development Under A Senior, Work Included Developing  Admin Panel For The Website To Manage Matches And Tournaments.</p>
 												</div>
 												<!--End experience-->
 												
@@ -953,11 +1118,7 @@
 													<h4>My Juet App (<a href="http://myjuet.tk">Visit To App Page</a>)</h4>
 													<h6><i class="icon-calendar"></i>Nov 2016 - Jan 2017</h6>
 												</div>
-													<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+													<p>This Was My Personal Project On Android, This App Targets Audience From JUET Campus Students , Giving Them Ease To Access/View Attendence And TimeTable And Easy Login To The Portal .  </p>
 												</div>
 												<!--End experience-->
 												
@@ -997,7 +1158,7 @@
 						
 						
 										<!--Blog Tab-->
-									<section id="blog" class="bgWhite ofsInBottom">
+									<section id="education" class="bgWhite ofsInBottom">
 
 										<div class="main-title">
 									<h1>education</h1>
@@ -1045,11 +1206,17 @@
 														<h4>Bachelor Degree – Computer Science Engineering </h4>
 														<h6><i class="icon-calendar"></i>Jul 2016 - <span class="current">Current</span></h6>
 													</div>
-																<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                                        <p>I Am Currently Persuing B.TECH (
+                                                            <?php
+
+                                                            $start_date = new DateTime(Date('Y-m-d'));
+                                                            $since_start = $start_date->diff(new DateTime('2016-07-19'));
+                                                            $month=0;
+                                                            if($since_start->m > 0)
+                                                                $month=1;
+                                                                echo $since_start->y+$month.' year';
+                                                            ?> )
+                                                            From <strong>Jaypee University Of Engineering &amp; Technology,Guna</strong> In Computer Science Branch </p>
 													</div>
 													<!--End experience-->
 
@@ -1057,26 +1224,18 @@
 													<div class="exp">
 													<div class="hgroup" >
 														<h4>Sir Padampat Singhania Educational Centre </h4>
-														<h6><i class="icon-calendar"></i>Sept 2015 - Nov 2015</h6>
+														<h6><i class="icon-calendar"></i>Apr 2014 - Mar 2016</h6>
 													</div>
-																<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>													</div>
+																<p>The School Is Located In Kanpur , Studied 11th And 12th Standard AlongSide Preperations For Engineering Entrance.</div>
 													<!--End experience-->
 
 													<!--Experience-->
 													<div class="exp">
 													<div class="hgroup" >
 														<h4>City International School </h4>
-														<h6><i class="icon-calendar"></i>Sept 2015 - Nov 2015</h6>
+														<h6><i class="icon-calendar"></i>Apr 2008 - Mar 2014</h6>
 													</div>
-																<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>													</div>
+																<p>This Is A Boarding School Located In Lucknow , Most Of My Learning Is Accomplished Here. </p>													</div>
 													<!--End experience-->
 
 
@@ -1085,25 +1244,17 @@
 														<div class="exp">
 														<div class="hgroup" >
 															<h4>St. Xavier's School </h4>
-															<h6><i class="icon-calendar"></i>May 2015 - Sept 2015</h6>
+															<h6><i class="icon-calendar"></i>Apr 2003 - Mar 2008</h6>
 														</div>
-																	<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>														</div>
+																	<p>School In My Home Town </p>														</div>
 														<!--End experience-->
                                                         <!--Experience-->
 														<div class="exp">
 														<div class="hgroup" >
 															<h4>B.N.S.D Public School </h4>
-															<h6><i class="icon-calendar"></i>May 2015 - Sept 2015</h6>
+															<h6><i class="icon-calendar"></i><span class="current">Beginning</span> - Mar 2003</h6>
 														</div>
-																	<p>Ut enim ad minim veniam, quis nostrud exerc. Irure dolor in reprehend
-													 incididunt labore
-													 et dolore magna aliqua. Ut enim ad minim
-													 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-													 ex ea commodo consequat inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>														</div>
+																	<p>School In My Home Town</p>														</div>
 														<!--End experience-->
 
 
@@ -1140,92 +1291,16 @@
 											<!--Contact -->
 											<div class="contact">
 <div class="main-title">
-									<h1>testimonials</h1>
-										<div class="divider">
-												<div class="zigzag large clearfix "  data-svg-drawing="yes" >
-	<svg xml:space="preserve" viewBox="0 0 69.172 14.975" width="37" height="28" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
-	<path d="M1.357,12.26 10.807,2.81 20.328,12.332
-		29.781,2.879 39.223,12.321 48.754,2.79 58.286,12.321 67.815,2.793 "  style="stroke-dasharray: 93.9851, 93.9851; stroke-dashoffset: 0;"/>
-	</svg>
-	</div>
-	</div>
-								</div>	
-								
+									
 							<!--End main title-->
 						
 								
 						
 								<!--Content-->	
-								<div class="content">
-
-									<!--Block content-->	
-									<div class="block-content ">
-
-
-									<!--Testimonilas-->
-									<div class="testimonials">
-
-
-		                               	<!--Row-->	
-										<div class="row ">
-											
-										<div class="col-md-12">
-											
-											<!--Slider-->
-											<div class="testi clearfix ">
-
-
-												<ul id="testimonial-carousel">
-												<li>
-													
-													<div class="block-quote">
-													<div class="block-img"><img alt="" src="img/testimonial/1.jpg"></div>
-													<div class="block-icon"><i class="icon-quote"></i></div>
-													<h3 class="block-profile">Carlose Smith   <span> CEO / Split Inc</span></h3>
-													<blockquote>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-														 totam rem aperiam, eaque ipsa quae ab illo
-														 inventore veritatis et quasi architecto beatae vitae dicta.</blockquote>
-													
-													</div>
-												 </li>
-												<li>
-													<div class="block-quote">
-													<div class="block-img"><img alt="" src="img/testimonial/2.jpg"></div>
-													<div class="block-icon"><i class="icon-quote"></i></div>
-													<h3 class="block-profile">Carlose Smith<span> CEO / Split Inc</span></h3>
-													<blockquote>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-														 totam rem aperiam, eaque ipsa quae ab illo
-														 inventore veritatis et quasi architecto beatae vitae dicta.</blockquote>
-													
-													</div>
-												</li>	
-
-
-												</ul>	
-
-													</div>
-											<!--End  slider-->
-											
-											
-										</div>
-										
-										
-											</div>
-											<!--End row-->
-
-
-			                            </div>
-										<!--End testimonials-->
-
-										</div>
-										<!--End block content-->
-
-
-							</div>
-							<!--End content-->
-							<!--Main title-->
-
-													<div class="main-title">
+								
+                                                <!--Main title-->
+                                                
+													<div id="contactinfo" class="main-title">
 														<h1>contact info</h1>
 															<div class="divider">
 																	<div class="zigzag large clearfix "  data-svg-drawing="yes" >
@@ -1298,24 +1373,9 @@
 										<!--End content-->
 										
 										
-										
-										
-										
-				
-				
-										<!--Main title-->
-
-											<div class="main-title">
-												<h1>Submit Your Review / Testify My Work</h1>
-													<div class="divider">
-															<div class="zigzag large clearfix "  data-svg-drawing="yes" >
-				<svg xml:space="preserve" viewBox="0 0 69.172 14.975" width="37" height="28" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1">
-				<path d="M1.357,12.26 10.807,2.81 20.328,12.332
-					29.781,2.879 39.223,12.321 48.754,2.79 58.286,12.321 67.815,2.793 "  style="stroke-dasharray: 93.9851, 93.9851; stroke-dashoffset: 0;"/>
-				</svg>
-				</div>
-				</div>
-											</div>	
+                                                					<!--Main title-->
+                                        <section id="post"></section>
+											
 
 										<!--End main title-->
 
@@ -1323,69 +1383,7 @@
 
 
 								<!--Content-->	
-								<div class="content">
-
-									<!--Block content-->	
-									<div class="block-content ">
-
-									<!--Contact-->
-									<div class="block-contact margBSSmall">
-										
-										<!--Row-->
-										<div class="row">
-
-										<div class="col-md-12">
-
-											
-														<form class="contact-form" method="post" action="http://demo.mutationmedia.net/SPLIT/send.php">
-
-															<!--Input columns-->
-															<div class="input-columns clearfix">
-
-															<div class="column1">
-																<div class="column-inner">
-															<input type="text" placeholder="Name" value="" id="name" name="name">
-															</div>
-															</div>
-
-															<!--Column-->
-															<div class="column2">
-																<div class="column-inner">
-															<input type="text" placeholder="Designation" value="" id="designation" name="designation">
-															</div>
-															</div>
-															<!--End column-->
-
-															</div>
-															<!--End input columns-->
-
-															<input type="text" placeholder="Organisation" value="" id="organisation" name="organisation">
-														<textarea name="review" placeholder="My Work/Skill Review " id="review" cols="45" rows="10"></textarea>
-														<input type="submit" value="Submit" class="but opc-2 submit">
-														</form>
-														
-														<!--Contact form message-->
-														<div id="success"><h2>Your Review has been Sent. Thank you!</h2></div>
-														<div id="error"><h2>Sorry! your Review have not been Posted.</h2></div>
-														<!--End contact form message-->
-
-
-										</div>
-										
-										
-										</div>
-										<!--End row-->
-
-	                            </div>
-								<!--End contact-->
-
-								</div>
-								<!--End block content-->
-
-
-
-								</div>
-								<!--End content-->
+								
 
 
 
@@ -1424,6 +1422,8 @@
 											<!--End button-->
 
 
+							
+								
 
 
 											</div>
@@ -1463,7 +1463,6 @@
 <script src="js/placeholders.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/Switcher/switcher.js"></script>
 <script src="js/script.js" type="text/javascript"></script>
-<script src="../../maps.googleapis.com/maps/api/js19f6?v=3.exp&amp;sensor=false"></script>
 
 
 <script>
@@ -1490,84 +1489,6 @@ $(document).ready(function(){
 //---------------------------------- Google map location -----------------------------------------//
 
 
-$('#wrapper').bind('easytabs:after', function() {
-
-
-		
-		
-		var styles = [
-				        {
-				            stylers: [
-				                { saturation: -100 }
-
-				            ]
-				        },{
-				            featureType: 'road',
-				            elementType: 'geometry',
-				            stylers: [
-				                { hue: "#74b7b0" },
-				                { visibility: 'simplified' }
-				            ]
-				        },{
-				            featureType: 'road',
-				            elementType: 'labels',
-				            stylers: [
-				                { visibility: 'on' }
-				            ]
-				        }
-				      ],
-
-				       lat = -33.867487,
-				       lng = 151.20699,
-
-
-
-
-
-				      customMap = new google.maps.StyledMapType(styles,
-				          {name: 'Styled Map'}),
-
-
-				      mapOptions = {
-				          zoom: 14,
-						scrollwheel: false,
-						disableDefaultUI: true,
-				          center: new google.maps.LatLng( lat, lng ),
-				          mapTypeControlOptions: {
-				              mapTypeIds: [google.maps.MapTypeId.ROADMAP]
-				          }
-				      },
-				      map = new google.maps.Map(document.getElementById('map'), mapOptions),
-				      myLatlng = new google.maps.LatLng( lat, lng ),
-
-
-
-
-				      marker = new google.maps.Marker({
-				        position: myLatlng,
-				        map: map,
-						icon: {
-						            url: 'img/marker.png',
-						            scaledSize: new google.maps.Size(26, 42)
-						        }
-				      });
-
-
-
-
-
-				      map.mapTypes.set('map_style', customMap);
-				      map.setMapTypeId('map_style');
-
-
-
-
-		
-
-		
-   
-});
-
 
 
 
@@ -1582,6 +1503,7 @@ $('#wrapper').bind('easytabs:after', function() {
 });
 
 })(jQuery);
+    
 
 </script>
 
@@ -1594,5 +1516,4 @@ $('#wrapper').bind('easytabs:after', function() {
 
     </body>
 
-<!-- Mirrored from demo.mutationmedia.net/SPLIT/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 Nov 2017 13:20:50 GMT -->
 </html>
