@@ -117,6 +117,9 @@
                     <a class="page-scroll" href="#project">Portfolio<span></span></a>
                   </li>
                   <li class="nav-item">
+                    <a class="page-scroll" href="#contributions">Open Source<span></span></a>
+                    </li>
+                    <li class="nav-item">
                     <a class="page-scroll" href="#work">Experience<span></span></a>
                   </li>
                 </ul>
@@ -147,8 +150,7 @@
                 not a
                 hefty challenge, maintaining the application over the long term and providing updates without breaking
                 things is where experience is needed</p>
-              <a data-toggle="modal" data-target="#exampleModalCenter" href="#contact" class="main-btn wow fadeInUp"
-                data-wow-duration="1.3s" data-wow-delay="1.4s">Want to discuss your project ?</a>
+              <a href="#contact" class="main-btn wow fadeInUp" data-cal-link="shrey/30min">Want to discuss your project ?</a>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-7">
@@ -489,8 +491,13 @@
             <div>
               <a href="https://github.com/calcom/cal.com/pull/2580">#2580</a> feat(app-store): Add Giphy app
             </div>
-            <div>
+            <div style="display: flex; align-items: center;">
               <a href="https://github.com/calcom/cal.com">calcom/cal.com</a>
+              <span style="padding-top: 8px;padding-left: 10px;">
+                <!-- Place this tag where you want the button to render. -->
+                <a class="github-button" href="https://github.com/calcom/cal.com" data-icon="octicon-star" data-show-count="true"
+                  aria-label="Star calcom/cal.com on GitHub">Star</a>
+              </span>
             </div>
           </div>
         </div>
@@ -504,8 +511,14 @@
             <div>
               <a href="https://github.com/calcom/cal.com/pull/2746">#2746</a> fix(app-store): Giphy Ux fixes
             </div>
-            <div>
+            <div style="display: flex; align-items: center;">
               <a href="https://github.com/calcom/cal.com">calcom/cal.com</a>
+              <span style="padding-top: 8px;padding-left: 10px;">
+              
+                <!-- Place this tag where you want the button to render. -->
+                <a style="margin-top: 10px;" class="github-button" href="https://github.com/calcom/cal.com" data-icon="octicon-star"
+                  data-show-count="true" aria-label="Star calcom/cal.com on GitHub">Star</a>
+              </span>
             </div>
           </div>
         </div>
@@ -519,8 +532,13 @@
             <div>
               <a href="https://github.com/gorilla/mux/pull/674">#674</a> fix(mux.go): use cleaned path as URL.Path
             </div>
-            <div>
+            <div style="display: flex; align-items: center;">
               <a href="https://github.com/gorilla/mux"> gorilla / mux </a>
+              <span style="padding-top: 8px;padding-left: 10px;">
+                <!-- Place this tag where you want the button to render. -->
+                <a class="github-button" href="https://github.com/gorilla/mux" data-icon="octicon-star" data-show-count="true"
+                  aria-label="Star gorilla/mux on GitHub">Star</a>
+              </span>
             </div>
           </div>
         </div>
@@ -764,7 +782,7 @@
                 </p>
               </div>
               <div class="call_to_action_btn">
-                <a data-toggle="modal" data-target="#exampleModalCenter" class="main-btn">Schedule a Meeting</a>
+                <a data-cal-link="shrey/30min" class="main-btn">Schedule a Meeting</a>
               </div>
             </div>
           </div>
@@ -821,25 +839,7 @@
   <script src="js/js-wow.min.js"></script>
   <script src="js/jquery.lazy.min.js"></script>
   <script src="js/js-main.js"></script>
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="height: 100%; margin-top: 0; margin-bottom: 0;"
-      role="document">
-      <div class="modal-content" style="height: 100%">
-        <div class="modal-body">
-          <div class="zoomai-inline-widget"
-            data-url="https://meeting.calendarhero.com/meeting/new/614ebb75c2277400205cc273/websitelead"
-            style="min-width:320px; height:630px;"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
-<!-- <div class="zoomai-slideout-widget-url" data-url="https://meeting.calendarhero.com/meeting/new/614ebb75c2277400205cc273/overseas"></div> -->
-<script defer type="text/javascript" src="https://app.calendarhero.com/assets/widget.js"></script>
 <script>
   $('.lazy').Lazy({
     // your configuration goes here
@@ -851,5 +851,18 @@
     }
   });
 </script>
-
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Cal element-click embed code begins -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", { origin: "https://app.cal.com" });
+  //Important: Also, add data-cal-link="shrey/30min" attribute to the element you want to open Cal on click
+  Cal("ui", {
+    styles: {
+      branding: { "brandColor": "#00A78E" }
+    }
+  })
+</script>
+<!-- Cal element-click embed code ends -->
 </html>
